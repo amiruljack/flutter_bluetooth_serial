@@ -47,11 +47,7 @@ class BackgroundCollectingTask extends Model {
         // If there is a sample, and it is full sent
         int index = _buffer.indexOf('t'.codeUnitAt(0));
         if (index >= 0 && _buffer.length - index >= 7) {
-          final DataSample sample = DataSample(
-              temperature1: (_buffer[index + 1] + _buffer[index + 2] / 100),
-              temperature2: (_buffer[index + 3] + _buffer[index + 4] / 100),
-              waterpHlevel: (_buffer[index + 5] + _buffer[index + 6] / 100),
-              timestamp: DateTime.now());
+          final DataSample sample = DataSample(temperature1: (_buffer[index + 1] + _buffer[index + 2] / 100), temperature2: (_buffer[index + 3] + _buffer[index + 4] / 100), waterpHlevel: (_buffer[index + 5] + _buffer[index + 6] / 100), timestamp: DateTime.now());
           _buffer.removeRange(0, index + 7);
 
           samples.add(sample);
@@ -69,10 +65,8 @@ class BackgroundCollectingTask extends Model {
     });
   }
 
-  static Future<BackgroundCollectingTask> connect(
-      BluetoothDevice server) async {
-    final BluetoothConnection connection =
-        await BluetoothConnection.toAddress(server.address);
+  static Future<BackgroundCollectingTask> connect(BluetoothDevice server) async {
+    final BluetoothConnection connection = await BluetoothConnection.toAddress(server.address);
     return BackgroundCollectingTask._fromConnection(connection);
   }
 
